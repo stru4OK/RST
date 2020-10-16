@@ -1,0 +1,284 @@
+﻿<Window x:Class="RST.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:RST"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="{Binding title}"
+        Width="929"
+        Height="700"
+        mc:Ignorable="d">
+
+    <Window.DataContext>
+        <local:ViewModel />
+    </Window.DataContext>
+
+    <Grid Background="{Binding colorBackground}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <ListView x:Name="listView"
+                  Margin="10,30,476,75"
+                  FontSize="13.333"
+                  ItemsSource="{Binding ProcessingsView}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="ToolTip" Value="{Binding address}" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="125" DisplayMemberBinding="{Binding name}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Ресурс" ToolTip="Имя процессинга" />
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="75" DisplayMemberBinding="{Binding status}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Статус" ToolTip="Статус процессинга (онлайн/оффлайн)" />
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="65" DisplayMemberBinding="{Binding version}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Версия" ToolTip="Версия процессинга (берется с index-страницы)" />
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="75" DisplayMemberBinding="{Binding sucReqElectCard}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="УЗС" ToolTip="Количество успешных запросов сегодня (активации/платежи/отмены/депозиты)" />
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="75" DisplayMemberBinding="{Binding responsePing}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Время" ToolTip="Время получения ответа от процессинга на запрос баланса" />
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBox x:Name="statusInfoB"
+                 Width="155"
+                 Height="55"
+                 Margin="0,0,476,10"
+                 HorizontalAlignment="Right"
+                 VerticalAlignment="Bottom"
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 BorderThickness="3"
+                 FontSize="10.667"
+                 IsReadOnly="True"
+                 Opacity="0.995"
+                 RenderTransformOrigin="0.5,0.5"
+                 SelectionOpacity="-5"
+                 Text="{Binding statusInfo,
+                                UpdateSourceTrigger=PropertyChanged}"
+                 TextAlignment="Center"
+                 TextWrapping="Wrap"
+                 ToolTip="{Binding statusToolTip}">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform AngleY="-0.052" />
+                    <RotateTransform />
+                    <TranslateTransform Y="-0.082" />
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <Label x:Name="statusL"
+               Width="75"
+               Height="35"
+               Margin="0,0,616,15"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Bottom"
+               Content="Статус"
+               FontFamily="Arial"
+               FontSize="14.667"
+               RenderTransformOrigin="-0.846,0.5" />
+        <TextBox x:Name="countDownB"
+                 Width="75"
+                 Height="55"
+                 Margin="70,0,0,10"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Bottom"
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 BorderThickness="3"
+                 FontSize="18.667"
+                 IsReadOnly="True"
+                 Text="{Binding countDown,
+                                UpdateSourceTrigger=PropertyChanged}"
+                 TextAlignment="Center"
+                 TextWrapping="Wrap" />
+        <Label x:Name="countDownL"
+               Width="60"
+               Height="30"
+               Margin="10,0,0,20"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Bottom"
+               Content="Отсчет"
+               FontFamily="Arial"
+               FontSize="14.667"
+               RenderTransformOrigin="-0.846,0.5" />
+        <ListView x:Name="listView_Copy"
+                  Width="456"
+                  Margin="0,30,10,345"
+                  HorizontalAlignment="Right"
+                  FontSize="13.333"
+                  ItemsSource="{Binding MobilesView}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="ToolTip" Value="{Binding address}" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="125" DisplayMemberBinding="{Binding name}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Ресурс" ToolTip="Имя мобильного бэка" />
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="75" DisplayMemberBinding="{Binding status}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Статус" ToolTip="Статус мобильного бэка (онлайн/оффлайн)" />
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="65" DisplayMemberBinding="{Binding version}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Версия" ToolTip="Версия мобильного бэка (берется с index-страницы)" />
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="75" DisplayMemberBinding="{Binding sucReqElectCard}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="ЭК" ToolTip="Количество свободных электронных карт в базе для выдачи" />
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="75" DisplayMemberBinding="{Binding responsePing}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Время" ToolTip="Время получения ответа от мобильного бэка на GET-запрос получения версии" />
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView x:Name="listView_Copy1"
+                  Width="456"
+                  Height="305"
+                  Margin="0,0,10,10"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Bottom"
+                  FontSize="13.333"
+                  ItemsSource="{Binding OthersView}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="ToolTip" Value="{Binding address}" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding name}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Ресурс" ToolTip="Имя ресурса" />
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" DisplayMemberBinding="{Binding status}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Статус" ToolTip="Статус ресурса (онлайн/оффлайн)" />
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" DisplayMemberBinding="{Binding version}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Версия" ToolTip="Версия ресурса (берется с index-страницы)" />
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" DisplayMemberBinding="{Binding responsePing}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Время" ToolTip="Время получения ответа от ресурса на GET-запрос получения версии" />
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label x:Name="labelProcessing"
+               Width="130"
+               Margin="165,0,0,0"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Content="Процессинги"
+               FontFamily="Arial"
+               FontSize="17.333" />
+        <Label x:Name="labelMobile"
+               Width="166"
+               Margin="0,0,143,0"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Top"
+               Content="Мобильные бэки"
+               FontFamily="Arial"
+               FontSize="17.333" />
+        <Label x:Name="labelOthers"
+               Width="157"
+               Height="30"
+               Margin="0,0,152,315"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Bottom"
+               Content="Другие ресурсы"
+               FontFamily="Arial"
+               FontSize="17.333" />
+        <Button x:Name="AddTenMinutes"
+                Width="65"
+                Height="25"
+                Margin="155,0,0,10"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Command="{Binding AddTenMinutes}"
+                Content="+10'"
+                FontFamily="Arial"
+                FontSize="12"
+                RenderTransformOrigin="1.636,1.4">
+            <Button.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0" Color="#FFF3F3F3" />
+                    <GradientStop Offset="0.5" Color="#FFEBEBEB" />
+                    <GradientStop Offset="0.5" Color="#FFDDDDDD" />
+                    <GradientStop Offset="1" Color="#FF98CD6B" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="ResetCounter"
+                Width="65"
+                Height="25"
+                Margin="155,0,0,40"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Command="{Binding ResetCounter}"
+                Content="Сброс"
+                FontFamily="Arial"
+                FontSize="12">
+            <Button.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0" Color="#FFF3F3F3" />
+                    <GradientStop Offset="0.5" Color="#FFEBEBEB" />
+                    <GradientStop Offset="0.5" Color="#FFDDDDDD" />
+                    <GradientStop Offset="1" Color="#FF98CD6B" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <!--<Button x:Name="UpdateButton"
+                Width="30"
+                Margin="190,0,0,10"
+                HorizontalAlignment="Left"
+                Command="{Binding Update}"
+                Content="UPD"
+                FontSize="10"
+                IsEnabled="{Binding isEnabledUpdate}"
+                RenderTransformOrigin="0,0.48" Height="25" VerticalAlignment="Bottom">
+            <Button.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0" Color="#FFF3F3F3" />
+                    <GradientStop Offset="0.5" Color="#FFEBEBEB" />
+                    <GradientStop Offset="0.5" Color="#FFDDDDDD" />
+                    <GradientStop Offset="1" Color="#FF98CD6B" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>-->
+    </Grid>
+</Window>
